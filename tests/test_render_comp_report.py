@@ -16,7 +16,7 @@ class VisualReportRendererTest(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmpdir:
             output = Path(tmpdir) / "report.html"
             subprocess.run(
-                [sys.executable, str(SCRIPT), "--input", str(SAMPLE), "--output", str(output)],
+                [sys.executable, str(SCRIPT), "--input", str(SAMPLE), "--output", str(output), "--skip-image-check"],
                 cwd=ROOT,
                 check=True,
                 text=True,
@@ -70,6 +70,27 @@ class VisualReportRendererTest(unittest.TestCase):
         self.assertEqual(data["name"], "木灵飞机")
         self.assertEqual(len(data["board"]["rows"]), 4)
         self.assertEqual(len(data["ratings"]), 8)
+
+    def test_render_fails_when_an_image_url_cannot_load(self):
+        data = json.loads(SAMPLE.read_text(encoding="utf-8"))
+        data["board"]["rows"][0][0]["avatar"] = "http://127.0.0.1:9/missing-avatar.png"
+
+        with tempfile.TemporaryDirectory() as tmpdir:
+            input_path = Path(tmpdir) / "broken.json"
+            output = Path(tmpdir) / "report.html"
+            input_path.write_text(json.dumps(data), encoding="utf-8")
+
+            result = subprocess.run(
+                [sys.executable, str(SCRIPT), "--input", str(input_path), "--output", str(output)],
+                cwd=ROOT,
+                text=True,
+                capture_output=True,
+            )
+
+            self.assertNotEqual(result.returncode, 0)
+            self.assertFalse(output.exists())
+            self.assertIn("Image validation failed", result.stderr)
+            self.assertIn("拉莫斯 avatar", result.stderr)
 
 
 if __name__ == "__main__":

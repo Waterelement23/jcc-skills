@@ -3,6 +3,9 @@ import argparse
 import html
 import json
 import math
+import sys
+import urllib.error
+import urllib.request
 from pathlib import Path
 
 
@@ -160,6 +163,63 @@ def normalize_input(data):
     return [data]
 
 
+def collect_image_refs(data):
+    refs = []
+    for comp in normalize_input(data):
+        comp_name = comp.get("name", "unknown comp")
+        for row in comp.get("board", {}).get("rows", []):
+            for unit in row:
+                if not unit:
+                    continue
+                if unit.get("avatar"):
+                    refs.append((f'{comp_name} / {unit.get("unit", "unknown unit")} avatar', unit["avatar"]))
+                for item in unit.get("items", []):
+                    if item.get("icon"):
+                        label = item.get("alt") or item.get("name") or "unknown item"
+                        refs.append((f"{comp_name} / {unit.get('unit', 'unknown unit')} item {label}", item["icon"]))
+
+        for item in comp.get("priority_items", []):
+            if item.get("icon"):
+                label = item.get("alt") or item.get("name") or "unknown item"
+                refs.append((f"{comp_name} / priority item {label}", item["icon"]))
+
+        for augment in comp.get("augments", []):
+            if augment.get("icon"):
+                refs.append((f'{comp_name} / augment {augment.get("name", "unknown augment")}', augment["icon"]))
+    return refs
+
+
+def image_url_loads(url, timeout):
+    request = urllib.request.Request(url, headers={"User-Agent": "jcc-meta-researcher/1.0"})
+    try:
+        with urllib.request.urlopen(request, timeout=timeout) as response:
+            status = getattr(response, "status", response.getcode())
+            content_type = response.headers.get("Content-Type", "")
+            if status >= 400:
+                return False, f"HTTP {status}"
+            if content_type and not content_type.lower().startswith("image/"):
+                return False, f"not an image ({content_type})"
+            response.read(1)
+            return True, ""
+    except (urllib.error.URLError, TimeoutError, OSError) as exc:
+        return False, str(exc)
+
+
+def validate_image_urls(data, timeout=5):
+    failures = []
+    seen = {}
+    for label, url in collect_image_refs(data):
+        if url in seen:
+            ok, reason = seen[url]
+        else:
+            ok, reason = image_url_loads(url, timeout)
+            seen[url] = (ok, reason)
+        if not ok:
+            failures.append(f"- {label}: {url} ({reason})")
+    if failures:
+        raise RuntimeError("Image validation failed:\n" + "\n".join(failures))
+
+
 def render_report(data):
     comps = normalize_input(data)
     cards = "\n".join(render_card(comp) for comp in comps)
@@ -171,14 +231,22 @@ def main():
     parser = argparse.ArgumentParser(description="Render a JCC visual composition report.")
     parser.add_argument("--input", required=True, help="Path to structured composition JSON.")
     parser.add_argument("--output", required=True, help="Path to write HTML report.")
+    parser.add_argument("--image-timeout", type=float, default=5, help="Seconds to wait for each remote image.")
+    parser.add_argument("--skip-image-check", action="store_true", help="Skip remote image validation.")
     args = parser.parse_args()
 
     data = json.loads(Path(args.input).read_text(encoding="utf-8"))
-    html_text = render_report(data)
-    output = Path(args.output)
-    output.parent.mkdir(parents=True, exist_ok=True)
-    output.write_text(html_text, encoding="utf-8")
-    print(output)
+    try:
+        if not args.skip_image_check:
+            validate_image_urls(data, timeout=args.image_timeout)
+        html_text = render_report(data)
+        output = Path(args.output)
+        output.parent.mkdir(parents=True, exist_ok=True)
+        output.write_text(html_text, encoding="utf-8")
+        print(output)
+    except Exception as exc:
+        print(exc, file=sys.stderr)
+        raise SystemExit(1) from exc
 
 
 if __name__ == "__main__":

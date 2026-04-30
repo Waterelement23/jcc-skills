@@ -81,7 +81,8 @@ When the user asks for a webpage, visual display, chart, board, or rendered阵�
 
 1. Build structured composition JSON with board rows, units, traits, priority items, augments, 星神, notes, and ratings.
 2. Run `scripts/render_comp_report.py --input <composition.json> --output <report.html>`.
-3. Return the generated HTML path or browser URL to the user.
+3. The renderer validates unit avatar, item icon, and augment icon URLs before writing HTML. If any image cannot load, fix the URL or replace the asset and rerun.
+4. Return the generated HTML path or browser URL to the user.
 
 The visual report renderer uses:
 
