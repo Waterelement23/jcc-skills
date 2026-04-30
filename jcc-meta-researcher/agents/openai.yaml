@@ -1,0 +1,4 @@
+interface:
+  display_name: "JCC Meta Researcher"
+  short_description: "金铲铲当前版本强势阵容装备海克斯与运营节奏研究助手"
+  default_prompt: "Use $jcc-meta-researcher to 根据当前版本推荐金铲铲强势阵容，并说明装备、海克斯、站位、D牌和拉人口节奏。"

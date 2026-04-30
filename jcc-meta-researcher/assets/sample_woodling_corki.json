@@ -1,0 +1,94 @@
+{
+  "name": "木灵飞机",
+  "stage": "后期成型 · 8人口",
+  "traits": [
+    {"count": 5, "name": "木灵族"},
+    {"count": 2, "name": "游侠"},
+    {"count": 2, "name": "织命人"},
+    {"count": 2, "name": "旅人"},
+    {"count": 2, "name": "堡垒"},
+    {"count": 2, "name": "未来"}
+  ],
+  "priority_items": [
+    {"name": "最后的轻语", "alt": "轻语", "icon": "https://ddragon.leagueoflegends.com/cdn/16.8.1/img/tft-item/TFT_Item_LastWhisper.png"},
+    {"name": "死亡之刃 / 杀人剑", "alt": "杀人剑", "icon": "https://ddragon.leagueoflegends.com/cdn/16.8.1/img/tft-item/TFT_Item_Deathblade.png"},
+    {"name": "饮血剑", "alt": "饮血", "icon": "https://ddragon.leagueoflegends.com/cdn/16.8.1/img/tft-item/TFT_Item_Bloodthirster.png"}
+  ],
+  "augments": [
+    {"name": "经济强化", "icon": "https://ddragon.leagueoflegends.com/cdn/16.8.1/img/tft-augment/Buried-Treasures-III.png"},
+    {"name": "装备强化", "icon": "https://ddragon.leagueoflegends.com/cdn/16.8.1/img/tft-augment/ItemGrabBag1.png"},
+    {"name": "前排坦度", "icon": "https://ddragon.leagueoflegends.com/cdn/16.8.1/img/tft-augment/Tutorial-Bulwark-I.png"}
+  ],
+  "gods": [
+    {"name": "艾克异变", "short": "艾"},
+    {"name": "阿狸经验", "short": "阿"},
+    {"name": "亚索强化格", "short": "亚"}
+  ],
+  "notes": {
+    "过渡思路": "开局有木灵或物理装再考虑。用强二星、未来或海魔人过渡，尽量不D，保血上8。",
+    "装备分析": "优先做库奇装备，轻语和杀人剑最关键；锐雯吃多余战士装，拉莫斯补肉装。",
+    "搜牌节奏": "4-2拉8启动，搜库奇、锐雯、拉莫斯二星。质量稳后上9补巴德、慎或控制。"
+  },
+  "ratings": {
+    "成型难度": 3,
+    "成型战力": 4,
+    "经济要求": 4,
+    "装备要求": 4,
+    "运营难度": 3,
+    "抗同行": 3,
+    "烂分能力": 4,
+    "吃鸡上限": 4
+  },
+  "board": {
+    "rows": [
+      [
+        {"unit": "拉莫斯", "role": "tank", "stars": 2, "avatar": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/characters/tft17_rammus/hud/tft17_rammus_square.tft_set17.png", "items": [
+          {"name": "日炎斗篷", "alt": "日炎", "icon": "https://ddragon.leagueoflegends.com/cdn/16.8.1/img/tft-item/TFT_Item_RedBuff.png"},
+          {"name": "冰甲 / 保护者誓约", "alt": "冰甲", "icon": "https://ddragon.leagueoflegends.com/cdn/16.8.1/img/tft-item/TFT_Item_FrozenHeart.png"},
+          {"name": "石像鬼石板甲", "alt": "石像鬼", "icon": "https://ddragon.leagueoflegends.com/cdn/16.8.1/img/tft-item/TFT_Item_GargoyleStoneplate.png"}
+        ]},
+        null,
+        {"unit": "慎", "role": "tank", "stars": 2, "avatar": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/characters/tft17_shen/hud/tft17_shen_square.tft_set17.png", "items": []},
+        null,
+        null,
+        {"unit": "波比", "role": "tank", "stars": 2, "avatar": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/characters/tft17_poppy/hud/tft17_poppy_square.tft_set17.png", "items": []},
+        null
+      ],
+      [
+        null,
+        {"unit": "锐雯", "role": "carry", "stars": 2, "avatar": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/characters/tft17_riven/hud/tft17_riven_square.tft_set17.png", "items": [
+          {"name": "饮血剑", "alt": "饮血", "icon": "https://ddragon.leagueoflegends.com/cdn/16.8.1/img/tft-item/TFT_Item_Bloodthirster.png"},
+          {"name": "斯特拉克的挑战护手 / 血手", "alt": "血手", "icon": "https://ddragon.leagueoflegends.com/cdn/16.8.1/img/tft-item/TFT_Item_SteraksGage.png"},
+          {"name": "泰坦的坚决", "alt": "泰坦", "icon": "https://ddragon.leagueoflegends.com/cdn/16.8.1/img/tft-item/TFT_Item_TitansResolve.png"}
+        ]},
+        null,
+        null,
+        null,
+        {"unit": "菲兹", "role": "utility", "stars": 1, "avatar": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/characters/tft17_fizz/hud/tft17_fizz_square.tft_set17.png", "items": []},
+        null
+      ],
+      [
+        null,
+        null,
+        {"unit": "巴德", "role": "utility", "stars": 1, "avatar": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/characters/tft17_bard/hud/tft17_bard_square.tft_set17.png", "items": []},
+        null,
+        null,
+        {"unit": "米利欧", "role": "utility", "stars": 1, "avatar": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/characters/tft17_milio/hud/tft17_milio_square.tft_set17.png", "items": []},
+        null
+      ],
+      [
+        null,
+        null,
+        null,
+        null,
+        {"unit": "库奇", "role": "carry", "stars": 3, "badge": "C", "avatar": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/characters/tft17_corki/hud/tft17_corki_square.tft_set17.png", "items": [
+          {"name": "最后的轻语", "alt": "轻语", "icon": "https://ddragon.leagueoflegends.com/cdn/16.8.1/img/tft-item/TFT_Item_LastWhisper.png"},
+          {"name": "死亡之刃 / 杀人剑", "alt": "杀人剑", "icon": "https://ddragon.leagueoflegends.com/cdn/16.8.1/img/tft-item/TFT_Item_Deathblade.png"},
+          {"name": "破防者", "alt": "破防", "icon": "https://wiki.leagueoflegends.com/en-us/images/Willbreaker_TFT_item.png"}
+        ]},
+        {"unit": "小木灵", "role": "utility", "stars": 1, "avatar": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/characters/tft17_ivernminion/hud/tft17_ivernminion_square.tft_set17.png", "items": []},
+        null
+      ]
+    ]
+  }
+}
